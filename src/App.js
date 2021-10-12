@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Form from "./Components/Form";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
   const [systems, setSystems] = useState([]);
@@ -8,6 +9,7 @@ const App = () => {
 
   const queryParams = new URLSearchParams(window.location.search);
   const discId = queryParams.get("discId");
+  console.log(discId);
 
   useEffect(() => {
     const getSystems = () => {
@@ -34,10 +36,15 @@ const App = () => {
   }, [discId]);
 
   return (
-    <div className="container">
-      <h1>Editing Disc {gameTitle.title}</h1>
-      <Form systems={systems} discId={discId} />
-    </div>
+    <Router>
+      <div className="container">
+        <Switch>
+          <Route path="/:id">
+            <Form systems={systems} discId={discId} title={gameTitle.title} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
 

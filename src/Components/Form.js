@@ -2,9 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 function Form(props) {
-  const { systems } = props;
+  const { systems, title } = props;
   let disc;
   let featureFlags;
+  let gameName;
+  console.log(title);
 
   const [gameSystemId, setGameSystemId] = useState("");
   const [discFormat, setDiscFormat] = useState("");
@@ -62,93 +64,65 @@ function Form(props) {
     featureFlags = null;
   }
 
+  if (title) {
+    gameName = <h1>Editing Disc {title}</h1>;
+  } else {
+    gameName = <h1>Editing Disc</h1>;
+  }
+
   if (props) {
     return (
-      <form className="">
-        <div className="form-group pb-2">
-          <label htmlFor="system">System</label>
-          <select
-            className="form-control"
-            id="system"
-            onChange={(e) => setGameSystemId(e.target.value)}
-            value={gameSystemId}
-          >
-            <option>Choose a system</option>
-            {systems.map((system, i) => (
-              <option key={i} value={system.id}>
-                {system.displayName}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group pb-2">
-          <label htmlFor="format">Disc Format</label>
-          <select
-            className="form-control"
-            id="format"
-            value={discFormatId}
-            onChange={(e) => setDiscFormatId(e.target.value)}
-            disabled={!gameSystemId}
-          >
-            <option>Choose a format</option>
-            {disc}
-          </select>
-        </div>
-
-        <div className="form-group pb-2">
-          <label htmlFor="type">Disc Type</label>
-          <select
-            className="form-control"
-            id="type"
-            value={discType}
-            onChange={(e) => setDiscType(e.target.value)}
-            disabled={discFormat.status === 404 || discFormat.status === 400}
-          >
-            <option>Choose a type</option>
-            <option>Game</option>
-            <option>Demo</option>
-          </select>
-        </div>
-
-        <div className="form-group pb-4">
-          <p>Text Language(s)</p>
-
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="English"
-              label="English"
-              id="textenglish"
-            ></input>
-            <label htmlFor="textenglish">English</label>
+      <>
+        {gameName}
+        <form className="">
+          <div className="form-group pb-2">
+            <label htmlFor="system">System</label>
+            <select
+              className="form-control"
+              id="system"
+              onChange={(e) => setGameSystemId(e.target.value)}
+              value={gameSystemId}
+            >
+              <option>Choose a system</option>
+              {systems.map((system, i) => (
+                <option key={i} value={system.id}>
+                  {system.displayName}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="Spanish"
-              label="Spanish"
-              id="textspanish"
-            ></input>
-            <label htmlFor="textspanish">Spanish</label>
+          <div className="form-group pb-2">
+            <label htmlFor="format">Disc Format</label>
+            <select
+              className="form-control"
+              id="format"
+              value={discFormatId}
+              onChange={(e) => setDiscFormatId(e.target.value)}
+              disabled={!gameSystemId}
+            >
+              <option>Choose a format</option>
+              {disc}
+            </select>
           </div>
 
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="French"
-              label="French"
-              id="textfrench"
-            ></input>
-            <label htmlFor="textfrench">French</label>
+          <div className="form-group pb-2">
+            <label htmlFor="type">Disc Type</label>
+            <select
+              className="form-control"
+              id="type"
+              value={discType}
+              onChange={(e) => setDiscType(e.target.value)}
+              disabled={discFormat.status === 404 || discFormat.status === 400}
+            >
+              <option>Choose a type</option>
+              <option>Game</option>
+              <option>Demo</option>
+            </select>
           </div>
 
           <div className="form-group pb-4">
-            <p>Audio Language(s)</p>
+            <p>Text Language(s)</p>
 
             <div className="form-check">
               <input
@@ -156,9 +130,9 @@ function Form(props) {
                 type="checkbox"
                 value="English"
                 label="English"
-                id="audioenglish"
+                id="textenglish"
               ></input>
-              <label htmlFor="audioenglish">English</label>
+              <label htmlFor="textenglish">English</label>
             </div>
 
             <div className="form-check">
@@ -167,9 +141,9 @@ function Form(props) {
                 type="checkbox"
                 value="Spanish"
                 label="Spanish"
-                id="audiospanish"
+                id="textspanish"
               ></input>
-              <label htmlFor="audiospanish">Spanish</label>
+              <label htmlFor="textspanish">Spanish</label>
             </div>
 
             <div className="form-check">
@@ -178,18 +152,55 @@ function Form(props) {
                 type="checkbox"
                 value="French"
                 label="French"
-                id="audiofrench"
+                id="textfrench"
               ></input>
-              <label htmlFor="audiofrench">French</label>
+              <label htmlFor="textfrench">French</label>
+            </div>
+
+            <div className="form-group pb-4">
+              <p>Audio Language(s)</p>
+
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value="English"
+                  label="English"
+                  id="audioenglish"
+                ></input>
+                <label htmlFor="audioenglish">English</label>
+              </div>
+
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value="Spanish"
+                  label="Spanish"
+                  id="audiospanish"
+                ></input>
+                <label htmlFor="audiospanish">Spanish</label>
+              </div>
+
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value="French"
+                  label="French"
+                  id="audiofrench"
+                ></input>
+                <label htmlFor="audiofrench">French</label>
+              </div>
             </div>
           </div>
-        </div>
-        {featureFlags}
+          {featureFlags}
 
-        <button type="submit" className="btn btn-outline-primary">
-          Submit for Review
-        </button>
-      </form>
+          <button type="submit" className="btn btn-outline-primary">
+            Submit for Review
+          </button>
+        </form>
+      </>
     );
   } else return null;
 }
