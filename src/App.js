@@ -6,10 +6,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const App = () => {
   const [systems, setSystems] = useState([]);
   const [gameTitle, setgameTitle] = useState([]);
+  const [languages, setLanguages] = useState([]);
 
   const queryParams = new URLSearchParams(window.location.search);
   const discId = queryParams.get("discId");
-  console.log(discId);
 
   useEffect(() => {
     const getSystems = () => {
@@ -21,6 +21,18 @@ const App = () => {
         .catch((err) => console.log(err));
     };
     getSystems();
+  }, []);
+
+  useEffect(() => {
+    const getLanguages = () => {
+      fetch(`https://vgindex-dev.org/api/change-request/languages`)
+        .then((res) => res.json())
+        .then((res) => {
+          setLanguages(() => res);
+        })
+        .catch((err) => console.log(err));
+    };
+    getLanguages();
   }, []);
 
   useEffect(() => {
@@ -40,7 +52,12 @@ const App = () => {
       <div className="container">
         <Switch>
           <Route path="/:id">
-            <Form systems={systems} discId={discId} title={gameTitle.title} />
+            <Form
+              systems={systems}
+              discId={discId}
+              title={gameTitle.title}
+              languages={languages}
+            />
           </Route>
         </Switch>
       </div>

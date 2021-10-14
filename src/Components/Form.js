@@ -2,16 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 function Form(props) {
-  const { systems, title } = props;
+  const { systems, title, languages } = props;
   let disc;
   let featureFlags;
+  let gameType;
   let gameName;
-  console.log(title);
 
   const [gameSystemId, setGameSystemId] = useState("");
   const [discFormat, setDiscFormat] = useState("");
   const [discFormatId, setDiscFormatId] = useState("");
-  const [discType, setDiscType] = useState("");
+  const [discType, setDiscType] = useState([]);
+  const [discTypeId, setDiscTypeId] = useState("");
   const [flags, setFlags] = useState([]);
 
   useEffect(() => {
@@ -29,6 +30,18 @@ function Form(props) {
   }, [gameSystemId]);
 
   useEffect(() => {
+    const getType = () => {
+      fetch(`https://vgindex-dev.org/api/change-request/disc-content-types`)
+        .then((res) => res.json())
+        .then((res) => {
+          setDiscType(() => res);
+        })
+        .catch((err) => console.log(err));
+    };
+    getType();
+  }, [discFormat]);
+
+  useEffect(() => {
     const getFlags = () => {
       fetch(
         `https://vgindex-dev.org/api/change-request/systems/${gameSystemId}/feature-flags?discFormatId=${discFormatId}`
@@ -42,7 +55,6 @@ function Form(props) {
     getFlags();
   }, [discFormatId, gameSystemId]);
 
-  //
   if (discFormat && discFormat.status !== 404) {
     disc = discFormat.map((disc, i) => (
       <option key={i} value={disc.id}>
@@ -51,6 +63,16 @@ function Form(props) {
     ));
   } else {
     disc = <option>Choose a format</option>;
+  }
+
+  if (discType && discType.status !== 404 && discType.status !== 400) {
+    gameType = discType.map((type, i) => (
+      <option key={i} value={type.id}>
+        {type.name}
+      </option>
+    ));
+  } else {
+    gameType = <option>Choose a type</option>;
   }
 
   if (flags && flags.status !== 404 && flags && flags.status !== 400) {
@@ -111,13 +133,12 @@ function Form(props) {
             <select
               className="form-control"
               id="type"
-              value={discType}
-              onChange={(e) => setDiscType(e.target.value)}
-              disabled={discFormat.status === 404 || discFormat.status === 400}
+              value={discTypeId}
+              onChange={(e) => setDiscTypeId(e.target.value)}
+              disabled={!discFormatId}
             >
               <option>Choose a type</option>
-              <option>Game</option>
-              <option>Demo</option>
+              {gameType}
             </select>
           </div>
 
