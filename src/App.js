@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import Form from "./Components/Form";
+import ChangeRequest from "./Components/ChangeRequest";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
@@ -52,7 +52,7 @@ const App = () => {
       <div className="container">
         <Switch>
           <Route path="/:id">
-            <Form
+            <ChangeRequest
               systems={systems}
               discId={discId}
               title={gameTitle.title}
