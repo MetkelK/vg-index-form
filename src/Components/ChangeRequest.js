@@ -2,9 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownToggle from "@restart/ui/esm/DropdownToggle";
-import DropdownMenu from "@restart/ui/esm/DropdownMenu";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 function ChangeRequest(props) {
   const { systems, title, languages } = props;
@@ -63,8 +61,8 @@ function ChangeRequest(props) {
   }, [discFormatId, gameSystemId]);
 
   if (discFormat && discFormat.status !== 404) {
-    disc = discFormat.map((disc, i) => (
-      <option key={i} value={disc.id}>
+    disc = discFormat.map((disc) => (
+      <option key={disc.id} value={disc.id}>
         {disc.displayName}
       </option>
     ));
@@ -73,8 +71,8 @@ function ChangeRequest(props) {
   }
 
   if (discType && discType.status !== 404 && discType.status !== 400) {
-    gameType = discType.map((type, i) => (
-      <option key={i} value={type.id}>
+    gameType = discType.map((type) => (
+      <option key={type.id} value={type.id}>
         {type.name}
       </option>
     ));
@@ -84,10 +82,14 @@ function ChangeRequest(props) {
 
   if (flags && flags.status !== 404 && flags && flags.status !== 400) {
     featureFlags = flags.map((feature, i) => (
-      <div className="form-group pb-4" key={i}>
-        <label htmlFor={feature}>{feature}</label>
-        <textarea className="form-control" id={feature} rows="1"></textarea>
-      </div>
+      <FloatingLabel
+        key={i}
+        controlId={feature}
+        label={feature}
+        className="mb-3"
+      >
+        <Form.Control as="textarea" placeholder={feature} />
+      </FloatingLabel>
     ));
   } else {
     featureFlags = null;
@@ -100,14 +102,16 @@ function ChangeRequest(props) {
   }
 
   if (languages) {
-    languageOptions = languages.map((language, i) => (
-      <input
-        className="form-check-input me-1"
+    languageOptions = languages.map((language) => (
+      <Form.Check
+        key={language.id}
+        className=""
+        inline
         type="checkbox"
-        value={language.name}
-        label={language.name}
         id={language.name}
-      ></input>
+        label={language.name}
+        value={language.name}
+      ></Form.Check>
     ));
   } else {
     languageOptions = null;
@@ -117,11 +121,10 @@ function ChangeRequest(props) {
     return (
       <>
         {gameName}
-        <Form>
-          <Form.Group className="form-group pb-2">
+        <Form className="pb-2">
+          <Form.Group className="pb-2">
             <Form.Label htmlFor="system">System</Form.Label>
             <Form.Select
-              className="form-control"
               id="system"
               value={gameSystemId}
               onChange={(e) => setGameSystemId(e.target.value)}
@@ -135,10 +138,9 @@ function ChangeRequest(props) {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="form-group pb-2">
+          <Form.Group className="pb-2">
             <Form.Label htmlFor="format">Disc Format</Form.Label>
             <Form.Select
-              className="form-control"
               id="format"
               value={discFormatId}
               onChange={(e) => setDiscFormatId(e.target.value)}
@@ -149,10 +151,9 @@ function ChangeRequest(props) {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="form-group pb-2">
+          <Form.Group className="pb-2">
             <Form.Label htmlFor="type">Disc Type</Form.Label>
             <Form.Select
-              className="form-control"
               id="type"
               value={discTypeId}
               onChange={(e) => setDiscTypeId(e.target.value)}
@@ -162,118 +163,20 @@ function ChangeRequest(props) {
               {gameType}
             </Form.Select>
           </Form.Group>
+          <Form.Group className=" pb-2">
+            <p>Text Language(s)</p>
+            {languageOptions}
+          </Form.Group>
+          <Form.Group className=" pb-2">
+            <p>Audio Language(s)</p>
+            {languageOptions}
+          </Form.Group>
 
           {featureFlags}
-        </Form>
-
-        {/* <form className="">
-          <div className="form-group pb-2">
-            <label htmlFor="system">System</label>
-            <select
-              className="form-control"
-              id="system"
-              onChange={(e) => setGameSystemId(e.target.value)}
-              value={gameSystemId}
-            >
-              <option>Choose a system</option>
-              {systems.map((system, i) => (
-                <option key={i} value={system.id}>
-                  {system.displayName}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group pb-2">
-            <label htmlFor="format">Disc Format</label>
-            <select
-              className="form-control"
-              id="format"
-              value={discFormatId}
-              onChange={(e) => setDiscFormatId(e.target.value)}
-              disabled={!gameSystemId}
-            >
-              <option>Choose a format</option>
-              {disc}
-            </select>
-          </div>
-
-          <div className="form-group pb-2">
-            <label htmlFor="type">Disc Type</label>
-            <select
-              className="form-control"
-              id="type"
-              value={discTypeId}
-              onChange={(e) => setDiscTypeId(e.target.value)}
-              disabled={!discFormatId}
-            >
-              <option>Choose a type</option>
-              {gameType}
-            </select>
-          </div>
-
-          <div className="form-group pb-4">
-            <div className="dropdown">
-              <button
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Text Language(s)
-              </button>
-              <ul
-                className="list-group dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                {languageOptions}
-              </ul>
-            </div>
-
-            <div className="form-group pb-4">
-              <p>Audio Language(s)</p>
-
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="English"
-                  label="English"
-                  id="audioenglish"
-                ></input>
-                <label htmlFor="audioenglish">English</label>
-              </div>
-
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Spanish"
-                  label="Spanish"
-                  id="audiospanish"
-                ></input>
-                <label htmlFor="audiospanish">Spanish</label>
-              </div>
-
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="French"
-                  label="French"
-                  id="audiofrench"
-                ></input>
-                <label htmlFor="audiofrench">French</label>
-              </div>
-            </div>
-          </div>
-          {featureFlags}
-
-          <button type="submit" className="btn btn-outline-primary">
+          <Button type="submit" variant="outline-primary">
             Submit for Review
-          </button>
-        </form> */}
+          </Button>
+        </Form>
       </>
     );
   } else return null;
