@@ -121,8 +121,8 @@ function ChangeRequest(props) {
     return (
       <>
         {gameName}
-        <Form className="pb-2">
-          <Form.Group className="pb-2">
+        <Form className="my-4">
+          <Form.Group className="my-2">
             <Form.Label htmlFor="system">System</Form.Label>
             <Form.Select
               id="system"
@@ -138,7 +138,7 @@ function ChangeRequest(props) {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="pb-2">
+          <Form.Group className="my-2">
             <Form.Label htmlFor="format">Disc Format</Form.Label>
             <Form.Select
               id="format"
@@ -151,7 +151,7 @@ function ChangeRequest(props) {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="pb-2">
+          <Form.Group className="my-2">
             <Form.Label htmlFor="type">Disc Type</Form.Label>
             <Form.Select
               id="type"
@@ -163,16 +163,17 @@ function ChangeRequest(props) {
               {gameType}
             </Form.Select>
           </Form.Group>
-          <Form.Group className=" pb-2">
+
+          <Form.Group className="my-2">
             <p>Text Language(s)</p>
             {languageOptions}
           </Form.Group>
-          <Form.Group className=" pb-2">
+          <Form.Group className="my-2">
             <p>Audio Language(s)</p>
             {languageOptions}
           </Form.Group>
 
-          {featureFlags}
+          <Form.Group className="my-2">{featureFlags}</Form.Group>
           <Button type="submit" variant="outline-primary">
             Submit for Review
           </Button>

@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import ChangeRequest from "./Components/ChangeRequest";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Container from "react-bootstrap/Container";
 
 const App = () => {
   const [systems, setSystems] = useState([]);
@@ -49,9 +50,9 @@ const App = () => {
 
   return (
     <Router>
-      <div className="container">
+      <Container>
         <Switch>
-          <Route path="/:id">
+          <Route path="/change-requests/:id">
             <ChangeRequest
               systems={systems}
               discId={discId}
@@ -60,7 +61,7 @@ const App = () => {
             />
           </Route>
         </Switch>
-      </div>
+      </Container>
     </Router>
   );
 };
