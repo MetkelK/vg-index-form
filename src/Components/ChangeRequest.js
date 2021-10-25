@@ -63,7 +63,7 @@ function ChangeRequest(props) {
   if (discFormat && discFormat.status !== 404) {
     disc = discFormat.map((disc) => (
       <option key={disc.id} value={disc.id}>
-        {disc.displayName}
+        {disc.name}
       </option>
     ));
   } else {
@@ -132,7 +132,7 @@ function ChangeRequest(props) {
               <option>Choose a system</option>
               {systems.map((system, i) => (
                 <option key={i} value={system.id}>
-                  {system.displayName}
+                  {system.name}
                 </option>
               ))}
             </Form.Select>
