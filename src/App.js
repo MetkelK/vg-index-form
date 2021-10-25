@@ -48,6 +48,8 @@ const App = () => {
     getGameTitle();
   }, [discId]);
 
+  let sortedLanguages = languages.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <Router>
       <Container>
@@ -57,7 +59,7 @@ const App = () => {
               systems={systems}
               discId={discId}
               title={gameTitle.title}
-              languages={languages}
+              languages={sortedLanguages}
             />
           </Route>
         </Switch>
