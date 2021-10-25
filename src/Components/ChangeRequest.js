@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 function ChangeRequest(props) {
-  const { systems, title, languages } = props;
+  const { systems, info, languages } = props;
 
   let gameName;
   let disc;
@@ -95,8 +95,8 @@ function ChangeRequest(props) {
     featureFlags = null;
   }
 
-  if (title) {
-    gameName = <h1>Editing Disc {title}</h1>;
+  if (info.title) {
+    gameName = <h1>Editing Disc {info.title}</h1>;
   } else {
     gameName = <h1>Editing Disc</h1>;
   }

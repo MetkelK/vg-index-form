@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 
 const App = () => {
   const [systems, setSystems] = useState([]);
-  const [gameTitle, setgameTitle] = useState([]);
+  const [gameInfo, setgameInfo] = useState([]);
   const [languages, setLanguages] = useState([]);
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -37,18 +37,19 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const getGameTitle = () => {
+    const getGameInfo = () => {
       fetch(`https://vgindex-dev.org/api/change-request/discs/${discId}`)
         .then((res) => res.json())
         .then((res) => {
-          setgameTitle(() => res);
+          setgameInfo(() => res);
         })
         .catch((err) => console.log(err));
     };
-    getGameTitle();
+    getGameInfo();
   }, [discId]);
 
   let sortedLanguages = languages.sort((a, b) => a.name.localeCompare(b.name));
+  let sortedSystems = systems.sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <Router>
@@ -56,9 +57,9 @@ const App = () => {
         <Switch>
           <Route path="/change-requests/:id">
             <ChangeRequest
-              systems={systems}
+              systems={sortedSystems}
               discId={discId}
-              title={gameTitle.title}
+              info={gameInfo}
               languages={sortedLanguages}
             />
           </Route>
