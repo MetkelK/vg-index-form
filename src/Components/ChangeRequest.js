@@ -71,6 +71,7 @@ function ChangeRequest(props) {
   }
 
   if (discType && discType.status !== 404 && discType.status !== 400) {
+    gameType = discType.sort((a, b) => a.name.localeCompare(b.name));
     gameType = discType.map((type) => (
       <option key={type.id} value={type.id}>
         {type.name}
@@ -162,6 +163,20 @@ function ChangeRequest(props) {
               <option>Choose a type</option>
               {gameType}
             </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="my-2">
+            <Form.Check
+              type="checkbox"
+              id="Anti-ModChip"
+              label="Anti-ModChip Protection"
+            />
+            <Form.Check type="checkbox" id="edc" label="EDC" />
+            <Form.Check
+              type="checkbox"
+              id="libcryptProtection"
+              label="Libcrypt Protection"
+            />
           </Form.Group>
 
           <Form.Group className="my-2">
