@@ -123,16 +123,19 @@ function ChangeRequest(props) {
       <>
         {gameName}
         <Form className="my-4">
-          <Form.Group className="my-2">
-            <FloatingLabel controlId="title" label="Title" className="">
-              <Form.Control as="textarea" placeholder="Title" />
-            </FloatingLabel>
+          <Form.Group className="mb-3" controlId="title">
+            <Form.Label>Title</Form.Label>
+            <Form.Control type="input" placeholder={info.title} />
           </Form.Group>
 
-          <Form.Group className="my-2">
-            <FloatingLabel controlId="version" label="Version" className="">
-              <Form.Control as="textarea" placeholder="Version" />
-            </FloatingLabel>
+          <Form.Group className="mb-3" controlId="version">
+            <Form.Label>Version</Form.Label>
+            <Form.Control type="input" placeholder={info.version} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="displayNumber">
+            <Form.Label>Display Number</Form.Label>
+            <Form.Control type="input" placeholder={info.displayNumber} />
           </Form.Group>
 
           <Form.Group className="my-2">
