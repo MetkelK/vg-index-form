@@ -12,6 +12,7 @@ function ChangeRequest(props) {
   let featureFlags;
   let gameType;
   let languageOptions;
+  let systemName;
 
   const [gameSystemId, setGameSystemId] = useState("");
   const [discFormat, setDiscFormat] = useState("");
@@ -118,6 +119,10 @@ function ChangeRequest(props) {
     languageOptions = null;
   }
 
+  systemName = systems.find((system) => {
+    return system.id === info.systemId;
+  });
+
   if (props) {
     return (
       <>
@@ -145,7 +150,7 @@ function ChangeRequest(props) {
               value={gameSystemId}
               onChange={(e) => setGameSystemId(e.target.value)}
             >
-              <option>Choose a system</option>
+              <option value={info.systemId}>{systemName.name}</option>
               {systems.map((system, i) => (
                 <option key={i} value={system.id}>
                   {system.name}
@@ -160,7 +165,6 @@ function ChangeRequest(props) {
               id="format"
               value={discFormatId}
               onChange={(e) => setDiscFormatId(e.target.value)}
-              disabled={!gameSystemId}
             >
               <option>Choose a format</option>
               {disc}
@@ -173,7 +177,6 @@ function ChangeRequest(props) {
               id="type"
               value={discTypeId}
               onChange={(e) => setDiscTypeId(e.target.value)}
-              disabled={!discFormatId}
             >
               <option>Choose a type</option>
               {gameType}
