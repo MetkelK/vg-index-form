@@ -14,6 +14,7 @@ function ChangeRequest(props) {
   let languageOptions;
   let systemName;
   let formatName;
+  let typeName;
 
   const [gameSystemId, setGameSystemId] = useState("");
   const [discFormat, setDiscFormat] = useState("");
@@ -136,7 +137,13 @@ function ChangeRequest(props) {
     formatName = "Choose a format";
   }
 
-  console.log(formatName);
+  if (info.length > 0 && discType.length > 0) {
+    typeName = discType.find((type) => {
+      return type.id === info.contentTypeId;
+    });
+  } else {
+    typeName = "Choose a type";
+  }
 
   if (props) {
     return (
@@ -193,7 +200,7 @@ function ChangeRequest(props) {
               value={discTypeId}
               onChange={(e) => setDiscTypeId(e.target.value)}
             >
-              <option>Choose a type</option>
+              <option value={info.contentTypeId}>{typeName}</option>
               {gameType}
             </Form.Select>
           </Form.Group>
