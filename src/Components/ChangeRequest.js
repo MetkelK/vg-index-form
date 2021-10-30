@@ -119,9 +119,13 @@ function ChangeRequest(props) {
     languageOptions = null;
   }
 
-  systemName = systems.find((system) => {
-    return system.id === info.systemId;
-  });
+  if (info.length > 0 && systems.length > 0) {
+    systemName = systems.find((system) => {
+      return system.id === info.systemId;
+    });
+  } else {
+    systemName = "Choose a system";
+  }
 
   if (props) {
     return (
@@ -150,7 +154,7 @@ function ChangeRequest(props) {
               value={gameSystemId}
               onChange={(e) => setGameSystemId(e.target.value)}
             >
-              <option value={info.systemId}>{systemName.name}</option>
+              <option value={info.systemId}>{systemName}</option>
               {systems.map((system, i) => (
                 <option key={i} value={system.id}>
                   {system.name}
