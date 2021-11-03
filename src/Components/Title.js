@@ -6,7 +6,10 @@ function Title(props) {
   return (
     <Form.Group className="mb-3" controlId="title">
       <Form.Label>Title</Form.Label>
-      <Form.Control type="input" placeholder={title} />
+      <Form.Control
+        type="input"
+        placeholder={title !== "Not Found" ? title : "Choose a title"}
+      />
     </Form.Group>
   );
 }
