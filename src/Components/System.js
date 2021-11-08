@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 
-function System(props) {
-  const { systems, currentSystem } = props;
-
+function System({ systems, currentSystem }) {
   const [system, setSystem] = useState("");
 
   let systemName;

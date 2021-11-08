@@ -1,8 +1,7 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 
-function DisplayNumber(props) {
-  const { displayNumber } = props;
+function DisplayNumber({ displayNumber }) {
   return (
     <Form.Group className="mb-3" controlId="displayNumber">
       <Form.Label>Display Number</Form.Label>
