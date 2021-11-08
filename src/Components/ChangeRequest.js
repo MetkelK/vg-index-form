@@ -7,9 +7,8 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   let featureFlags;
-  let gameType;
+
   let languageOptions;
-  let typeName;
 
   const [discFormat, setDiscFormat] = useState(info.formatId || "");
 
