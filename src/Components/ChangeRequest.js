@@ -28,6 +28,16 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     });
   };
 
+  // const findFormatname = discFormat.find((format) => {
+  //   return format.id === info.formatId;
+  // });
+
+  // const findTypeName = types.find((type) => {
+  //   return type.id === info.contentTypeId;
+  // });
+
+  //console.log([...values.languageIds]);
+
   useEffect(() => {
     const getFormat = () => {
       fetch(
@@ -71,12 +81,13 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     languageOptions = languages.map((language) => (
       <Form.Check
         key={language.id}
-        className=""
+        name="languageIds"
         inline
         type="checkbox"
         id={language.name}
         label={language.name}
-        value={language.name}
+        value={language.id}
+        onChange={handleInputChange}
       ></Form.Check>
     ));
   } else {
@@ -89,44 +100,51 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
       <Form className="my-4">
         <Form.Group className="mb-3" controlId="title">
           <Form.Label>Title</Form.Label>
-          <Form.Control
-            type="input"
-            placeholder={
-              info.title !== "Not Found" ? info.title : "Choose a title"
-            }
-            name="title"
-            onChange={handleInputChange}
-          />
+          <FloatingLabel
+            controlId="floatingTitle"
+            label={info.title !== "Not Found" ? info.title : "Choose a title"}
+          >
+            <Form.Control
+              type="input"
+              placeholder={
+                info.title !== "Not Found" ? info.title : "Choose a title"
+              }
+              name="title"
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="version">
           <Form.Label>Version</Form.Label>
-          <Form.Control
-            type="input"
-            placeholder={info.version}
-            name="version"
-            onChange={handleInputChange}
-          />
+          <FloatingLabel controlId="floatingVersion" label={info.version}>
+            <Form.Control
+              type="input"
+              placeholder={info.version}
+              name="version"
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="displayNumber">
           <Form.Label>Display Number</Form.Label>
-          <Form.Control
-            type="input"
-            placeholder={info.displayNumber}
-            name="displayNumber"
-            onChange={handleInputChange}
-          />
+          <FloatingLabel
+            controlId="floatingDisplayNumber"
+            label={info.displayNumber}
+          >
+            <Form.Control
+              type="input"
+              placeholder={info.displayNumber}
+              name="displayNumber"
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
         </Form.Group>
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="system">System</Form.Label>
-          <Form.Select
-            id="system"
-            value={values.systemId}
-            name="systemId"
-            onChange={handleInputChange}
-          >
+          <Form.Select id="system" value={values.systemId} name="systemId">
             {systems.map((system) => (
               <option key={system.id} value={system.id}>
                 {system.name}
@@ -137,43 +155,46 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="format">Disc Format</Form.Label>
-          <Form.Select
-            id="format"
-            value={values.formatId}
-            name="formatId"
-            onChange={handleInputChange}
-          >
-            {discFormat &&
-              discFormat.map((format) => (
-                <option key={format.id} value={format.id}>
-                  {format.name}
-                </option>
-              ))}
-          </Form.Select>
+          <FloatingLabel controlId="floatingDiscFormat" label={info.formatId}>
+            <Form.Select
+              id="format"
+              value={values.formatId}
+              name="formatId"
+              onChange={handleInputChange}
+            >
+              {discFormat &&
+                discFormat.map((format) => (
+                  <option key={format.id} value={format.id}>
+                    {format.name}
+                  </option>
+                ))}
+            </Form.Select>
+          </FloatingLabel>
         </Form.Group>
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="type">Disc Type</Form.Label>
-          <Form.Select
-            id="type"
-            value={values.contentTypeId}
-            name="contentTypeId"
-            onChange={handleInputChange}
+          <FloatingLabel
+            controlId="floatingDiscType"
+            label={info.contentTypeId}
           >
-            {types.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </Form.Select>
+            <Form.Select
+              id="type"
+              value={values.contentTypeId}
+              name="contentTypeId"
+              onChange={handleInputChange}
+            >
+              {types.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </Form.Select>
+          </FloatingLabel>
         </Form.Group>
 
         <Form.Group className="my-2">
-          <p>Text Language(s)</p>
-          {languageOptions}
-        </Form.Group>
-        <Form.Group className="my-2">
-          <p>Audio Language(s)</p>
+          <p>Language(s)</p>
           {languageOptions}
         </Form.Group>
 
