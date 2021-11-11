@@ -10,7 +10,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
   let languageOptions;
 
-  const [discFormat, setDiscFormat] = useState(info.formatId || "");
+  const [discFormat, setDiscFormat] = useState(info.formatId);
 
   const [flags, setFlags] = useState([]);
 
@@ -20,6 +20,10 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     setValues(info);
   }, [info]);
 
+  // useEffect(() => {
+  //   setDiscFormat(info.formatId);
+  // }, [info.formatId]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -27,16 +31,6 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
       [name]: value,
     });
   };
-
-  // const findFormatname = discFormat.find((format) => {
-  //   return format.id === info.formatId;
-  // });
-
-  // const findTypeName = types.find((type) => {
-  //   return type.id === info.contentTypeId;
-  // });
-
-  //console.log([...values.languageIds]);
 
   useEffect(() => {
     const getFormat = () => {
@@ -80,6 +74,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   if (languages) {
     languageOptions = languages.map((language) => (
       <Form.Check
+        checked={values.languageIds.includes(language.id)}
         key={language.id}
         name="languageIds"
         inline
@@ -155,7 +150,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="format">Disc Format</Form.Label>
-          <FloatingLabel controlId="floatingDiscFormat" label={info.formatId}>
+          <FloatingLabel controlId="floatingDiscFormat" label={info.name}>
             <Form.Select
               id="format"
               value={values.formatId}
@@ -174,10 +169,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="type">Disc Type</Form.Label>
-          <FloatingLabel
-            controlId="floatingDiscType"
-            label={info.contentTypeId}
-          >
+          <FloatingLabel controlId="floatingDiscType" label={info.name}>
             <Form.Select
               id="type"
               value={values.contentTypeId}
