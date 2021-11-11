@@ -20,10 +20,6 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     setValues(info);
   }, [info]);
 
-  // useEffect(() => {
-  //   setDiscFormat(info.formatId);
-  // }, [info.formatId]);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -31,6 +27,25 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
       [name]: value,
     });
   };
+
+  const handlelang = (e) => {
+    const { value } = e.target;
+    setValues((prevState) => ({
+      ...prevState,
+      languageIds: [...prevState.languageIds, value],
+    }));
+  };
+
+  // const findFormat = () => {
+  //   if (discFormat) {
+  //     let name = discFormat.filter((f) => ({
+  //       id: f.id === info.formatId,
+  //       name: f.name,
+  //     }));
+  //     console.log(name);
+  //   }
+  // };
+  // findFormat();
 
   useEffect(() => {
     const getFormat = () => {
@@ -74,7 +89,9 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   if (languages) {
     languageOptions = languages.map((language) => (
       <Form.Check
-        checked={values.languageIds.includes(language.id)}
+        checked={
+          values.languageIds ? values.languageIds.includes(language.id) : null
+        }
         key={language.id}
         name="languageIds"
         inline
@@ -82,7 +99,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         id={language.name}
         label={language.name}
         value={language.id}
-        onChange={handleInputChange}
+        onChange={handlelang}
       ></Form.Check>
     ));
   } else {
@@ -150,7 +167,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="format">Disc Format</Form.Label>
-          <FloatingLabel controlId="floatingDiscFormat" label={info.name}>
+          <FloatingLabel controlId="floatingDiscFormat" label={info.formatId}>
             <Form.Select
               id="format"
               value={values.formatId}
@@ -169,7 +186,10 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="type">Disc Type</Form.Label>
-          <FloatingLabel controlId="floatingDiscType" label={info.name}>
+          <FloatingLabel
+            controlId="floatingDiscType"
+            label={info.contentTypeId}
+          >
             <Form.Select
               id="type"
               value={values.contentTypeId}
