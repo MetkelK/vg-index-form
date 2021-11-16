@@ -7,7 +7,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   let featureFlags;
-
+  let formatName = "";
   let languageOptions;
 
   const [discFormat, setDiscFormat] = useState(info.formatId);
@@ -29,23 +29,28 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   };
 
   const handlelang = (e) => {
-    const { value } = e.target;
-    setValues((prevState) => ({
-      ...prevState,
-      languageIds: [...prevState.languageIds, value],
-    }));
+    const { value, checked } = e.target;
+
+    if (checked) {
+      setValues((prevState) => ({
+        ...prevState,
+        languageIds: [...prevState.languageIds, value],
+      }));
+    } else {
+      setValues((prevState) => ({
+        ...prevState,
+        languageIds: prevState.languageIds.filter((e) => e !== value),
+      }));
+    }
   };
 
-  // const findFormat = () => {
-  //   if (discFormat) {
-  //     let name = discFormat.filter((f) => ({
-  //       id: f.id === info.formatId,
-  //       name: f.name,
-  //     }));
-  //     console.log(name);
-  //   }
-  // };
-  // findFormat();
+  // if (discFormat) {
+  //   let name = discFormat.filter((f) => f.id === info.formatId);
+
+  //   formatName = name[0].name;
+
+  //   console.log(formatName);
+  // }
 
   useEffect(() => {
     const getFormat = () => {
@@ -167,7 +172,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="format">Disc Format</Form.Label>
-          <FloatingLabel controlId="floatingDiscFormat" label={info.formatId}>
+          <FloatingLabel controlId="floatingDiscFormat" label={formatName}>
             <Form.Select
               id="format"
               value={values.formatId}
