@@ -7,10 +7,11 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   let featureFlags;
-  let formatName = "";
   let languageOptions;
 
-  const [discFormat, setDiscFormat] = useState(info.formatId);
+  const [discFormat, setDiscFormat] = useState([]);
+  const [formatName, setFormatName] = useState("");
+  const [typeName, setTypeName] = useState("");
 
   const [flags, setFlags] = useState([]);
 
@@ -44,14 +45,6 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     }
   };
 
-  // if (discFormat) {
-  //   let name = discFormat.filter((f) => f.id === info.formatId);
-
-  //   formatName = name[0].name;
-
-  //   console.log(formatName);
-  // }
-
   useEffect(() => {
     const getFormat = () => {
       fetch(
@@ -62,7 +55,9 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         .catch((err) => console.log(err));
     };
     getFormat();
-  }, [values.systemId]);
+
+    setFormatName(discFormat.find((f) => f.id === info.formatId));
+  }, [values.systemId, discFormat, info.formatId]);
 
   useEffect(() => {
     const getFlags = () => {
@@ -74,7 +69,8 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         .catch((err) => console.log(err));
     };
     getFlags();
-  }, [values.systemId, values.formatId]);
+    setTypeName(types.find((t) => t.id === info.contentTypeId));
+  }, [values.systemId, values.formatId, types, info.contentTypeId]);
 
   if (flags && flags.status !== 404 && flags && flags.status !== 400) {
     featureFlags = flags.map((feature, i) => (
@@ -172,7 +168,10 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="format">Disc Format</Form.Label>
-          <FloatingLabel controlId="floatingDiscFormat" label={formatName}>
+          <FloatingLabel
+            controlId="floatingDiscFormat"
+            label={formatName === undefined ? "" : formatName.name}
+          >
             <Form.Select
               id="format"
               value={values.formatId}
@@ -193,7 +192,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           <Form.Label htmlFor="type">Disc Type</Form.Label>
           <FloatingLabel
             controlId="floatingDiscType"
-            label={info.contentTypeId}
+            label={typeName === undefined ? "" : typeName.name}
           >
             <Form.Select
               id="type"
