@@ -45,6 +45,22 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     }
   };
 
+  const handleCheck = (e) => {
+    const { name, value, checked } = e.target;
+
+    if (checked) {
+      setValues((prevState) => ({
+        ...prevState,
+        [name]: !!value,
+      }));
+    } else {
+      setValues((prevState) => ({
+        ...prevState,
+        [name]: null,
+      }));
+    }
+  };
+
   useEffect(() => {
     const getFormat = () => {
       fetch(
@@ -207,6 +223,18 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
               ))}
             </Form.Select>
           </FloatingLabel>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Check
+            type="checkbox"
+            id="edc"
+            label="EDC"
+            name="edc"
+            value={values.edc === undefined ? false : values.edc}
+            checked={values.edc}
+            onClick={handleCheck}
+          />
         </Form.Group>
 
         <Form.Group className="my-2">
