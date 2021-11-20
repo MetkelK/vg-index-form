@@ -237,6 +237,22 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           />
         </Form.Group>
 
+        <Form.Group>
+          <Form.Check
+            type="checkbox"
+            id="Anti-ModChip"
+            label="Anti-ModChip Protection"
+            name="antiModchipProtection"
+            value={
+              values.antiModchipProtection === undefined
+                ? false
+                : values.antiModchipProtection
+            }
+            checked={values.antiModchipProtection}
+            onChange={handleCheck}
+          />
+        </Form.Group>
+
         <Form.Group className="my-2">
           <p>Language(s)</p>
           {languageOptions}
