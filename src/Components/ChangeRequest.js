@@ -253,6 +253,22 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           />
         </Form.Group>
 
+        <Form.Group>
+          <Form.Check
+            type="checkbox"
+            id="libcrypt"
+            label="Libcrypt Protection"
+            name="libcryptProtection"
+            value={
+              values.libcryptProtection === undefined
+                ? false
+                : values.libcryptProtection
+            }
+            checked={values.libcryptProtection}
+            onChange={handleCheck}
+          />
+        </Form.Group>
+
         <Form.Group className="my-2">
           <p>Language(s)</p>
           {languageOptions}
