@@ -171,7 +171,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           </FloatingLabel>
         </Form.Group>
 
-        {/* <Form.Group className="mb-3" controlId="containsDescription">
+        <Form.Group className="mb-3" controlId="containsDescription">
           <Form.Label>Description</Form.Label>
           <FloatingLabel
             controlId="floatingDescription"
@@ -184,7 +184,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
               onChange={handleInputChange}
             />
           </FloatingLabel>
-        </Form.Group> */}
+        </Form.Group>
 
         <Form.Group className="my-2">
           <Form.Label htmlFor="system">System</Form.Label>
