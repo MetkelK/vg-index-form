@@ -171,6 +171,21 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           </FloatingLabel>
         </Form.Group>
 
+        {/* <Form.Group className="mb-3" controlId="containsDescription">
+          <Form.Label>Description</Form.Label>
+          <FloatingLabel
+            controlId="floatingDescription"
+            label={info.containsDescription}
+          >
+            <Form.Control
+              type="input"
+              placeholder={info.containsDescription}
+              name="containsDescription"
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
+        </Form.Group> */}
+
         <Form.Group className="my-2">
           <Form.Label htmlFor="system">System</Form.Label>
           <Form.Select id="system" value={values.systemId} name="systemId">
@@ -225,6 +240,33 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           </FloatingLabel>
         </Form.Group>
 
+        <Form.Group className="my-2">
+          <Form.Label>Errors Count</Form.Label>
+          <FloatingLabel
+            controlId="floatingErrorsCount"
+            label={info.errorsCount}
+          >
+            <Form.Control
+              type="number"
+              placeholder={info.errorsCount}
+              name="errorsCount"
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
+        </Form.Group>
+
+        <Form.Group className="my-2">
+          <Form.Label>Layer Break</Form.Label>
+          <FloatingLabel controlId="floatingLayerBreak" label={info.layerBreak}>
+            <Form.Control
+              type="number"
+              placeholder={info.layerBreak}
+              name="layerBreak"
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
+        </Form.Group>
+
         <Form.Group>
           <Form.Check
             type="checkbox"
@@ -269,10 +311,34 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           />
         </Form.Group>
 
+        {/* <Form.Group className="my-2">
+          <Form.Label>EXE Date</Form.Label>
+          <FloatingLabel controlId="floatingEXEDate" label={info.exeDate}>
+            <Form.Control
+              type="date"
+              placeholder={info.exeDate}
+              name="exeDate"
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
+        </Form.Group> */}
+
         <Form.Group className="my-2">
           <p>Language(s)</p>
           {languageOptions}
         </Form.Group>
+
+        {/* <Form.Group className="my-2">
+          <Form.Label>PVD</Form.Label>
+          <FloatingLabel controlId="floatingPVD" label={info.pvd}>
+            <Form.Control
+              type="input"
+              placeholder={info.pvd}
+              name="pvd"
+              onChange={handleInputChange}
+            />
+          </FloatingLabel>
+        </Form.Group> */}
 
         <Form.Group className="my-2">{featureFlags}</Form.Group>
         <Button type="submit" variant="outline-primary">
