@@ -29,6 +29,14 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     });
   };
 
+  const handleNumberChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: parseInt(value),
+    });
+  };
+
   const handlelang = (e) => {
     const { value, checked } = e.target;
 
@@ -250,7 +258,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
               type="number"
               placeholder={info.errorsCount}
               name="errorsCount"
-              onChange={handleInputChange}
+              onChange={handleNumberChange}
             />
           </FloatingLabel>
         </Form.Group>
@@ -262,7 +270,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
               type="number"
               placeholder={info.layerBreak}
               name="layerBreak"
-              onChange={handleInputChange}
+              onChange={handleNumberChange}
             />
           </FloatingLabel>
         </Form.Group>
