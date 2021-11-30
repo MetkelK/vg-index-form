@@ -78,9 +78,10 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         .then((res) => setDiscFormat(res))
         .catch((err) => console.log(err));
     };
+    if (discFormat !== undefined) {
+      setFormatName(discFormat.find((f) => f.id === info.formatId));
+    }
     getFormat();
-
-    setFormatName(discFormat.find((f) => f.id === info.formatId));
   }, [values.systemId, discFormat, info.formatId]);
 
   useEffect(() => {
