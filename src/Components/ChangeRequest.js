@@ -4,12 +4,13 @@ import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import ListGroup from "react-bootstrap/ListGroup";
 
 function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   let featureFlags;
   let languageOptions;
 
-  const [discFormat, setDiscFormat] = useState([]);
+  const [discFormat, setDiscFormat] = useState(undefined);
   const [formatName, setFormatName] = useState("");
   const [typeName, setTypeName] = useState("");
 
@@ -78,11 +79,15 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         .then((res) => setDiscFormat(res))
         .catch((err) => console.log(err));
     };
+
+    getFormat();
+  }, [values.systemId, info.formatId]);
+
+  useEffect(() => {
     if (discFormat !== undefined) {
       setFormatName(discFormat.find((f) => f.id === info.formatId));
     }
-    getFormat();
-  }, [values.systemId, discFormat, info.formatId]);
+  }, [discFormat, info.formatId]);
 
   useEffect(() => {
     const getFlags = () => {
@@ -99,14 +104,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
 
   if (flags && flags.status !== 404 && flags && flags.status !== 400) {
     featureFlags = flags.map((feature, i) => (
-      <FloatingLabel
-        key={i}
-        controlId={feature}
-        label={feature}
-        className="mb-3"
-      >
-        <Form.Control as="textarea" placeholder={feature} />
-      </FloatingLabel>
+      <ListGroup.Item key={i}>{feature}</ListGroup.Item>
     ));
   } else {
     featureFlags = null;
@@ -349,7 +347,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           </FloatingLabel>
         </Form.Group> */}
 
-        <Form.Group className="my-2">{featureFlags}</Form.Group>
+        <ListGroup className="my-2">{featureFlags}</ListGroup>
         <Button type="submit" variant="outline-primary">
           Submit for Review
         </Button>
