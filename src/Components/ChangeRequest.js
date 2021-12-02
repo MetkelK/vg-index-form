@@ -336,17 +336,16 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           {languageOptions}
         </Form.Group>
 
-        {/* <Form.Group className="my-2">
+        <Form.Group className="my-2">
           <Form.Label>PVD</Form.Label>
-          <FloatingLabel controlId="floatingPVD" label={info.pvd}>
-            <Form.Control
-              type="input"
-              placeholder={info.pvd}
-              name="pvd"
-              onChange={handleInputChange}
-            />
-          </FloatingLabel>
-        </Form.Group> */}
+
+          <Form.Control
+            type="input"
+            placeholder={info.pvd}
+            name="pvd"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
 
         <ListGroup className="my-2">{featureFlags}</ListGroup>
         <Button type="submit" variant="outline-primary">
