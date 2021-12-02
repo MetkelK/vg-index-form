@@ -319,7 +319,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           />
         </Form.Group>
 
-        {/* <Form.Group className="my-2">
+        <Form.Group className="my-2">
           <Form.Label>EXE Date</Form.Label>
           <FloatingLabel controlId="floatingEXEDate" label={info.exeDate}>
             <Form.Control
@@ -329,7 +329,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
               onChange={handleInputChange}
             />
           </FloatingLabel>
-        </Form.Group> */}
+        </Form.Group>
 
         <Form.Group className="my-2">
           <p>Language(s)</p>
