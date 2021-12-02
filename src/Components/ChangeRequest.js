@@ -13,9 +13,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   const [discFormat, setDiscFormat] = useState(undefined);
   const [formatName, setFormatName] = useState("");
   const [typeName, setTypeName] = useState("");
-
   const [flags, setFlags] = useState([]);
-
   const [values, setValues] = useState(info);
 
   useEffect(() => {
@@ -98,7 +96,10 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         .then((res) => setFlags(res))
         .catch((err) => console.log(err));
     };
-    getFlags();
+
+    if (values.systemId) {
+      getFlags();
+    }
     setTypeName(types.find((t) => t.id === info.contentTypeId));
   }, [values.systemId, values.formatId, types, info.contentTypeId]);
 
