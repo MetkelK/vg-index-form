@@ -387,6 +387,17 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
           />
         </Form.Group>
 
+        <Form.Group className="my-2">
+          <Form.Label>Header</Form.Label>
+
+          <Form.Control
+            type="input"
+            placeholder={info.header}
+            name="header"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
         <ListGroup className="my-2">{featureFlags}</ListGroup>
         <Button type="submit" variant="outline-primary">
           Submit for Review
