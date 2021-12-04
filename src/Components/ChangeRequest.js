@@ -9,6 +9,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 function ChangeRequest({ systems, types, languages, regions, discId, info }) {
   let featureFlags;
   let languageOptions;
+  let regionOptions;
 
   const [discFormat, setDiscFormat] = useState(undefined);
   const [formatName, setFormatName] = useState("");
@@ -129,6 +130,24 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     ));
   } else {
     languageOptions = null;
+  }
+
+  if (regions) {
+    regionOptions = regions.map((region) => (
+      <Form.Check
+        checked={values.regionIds ? values.regionIds.includes(region.id) : null}
+        key={region.id}
+        name="regionIds"
+        inline
+        type="checkbox"
+        id={region.name}
+        label={region.name}
+        value={region.id}
+        onChange={handlelang}
+      ></Form.Check>
+    ));
+  } else {
+    regionOptions = null;
   }
 
   return (
@@ -334,6 +353,11 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         <Form.Group className="my-2">
           <p>Language(s)</p>
           {languageOptions}
+        </Form.Group>
+
+        <Form.Group className="my-2">
+          <p>Regions(s)</p>
+          {regionOptions}
         </Form.Group>
 
         <Form.Group className="my-2">
