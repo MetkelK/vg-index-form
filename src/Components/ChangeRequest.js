@@ -53,6 +53,22 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     }
   };
 
+  const handlereg = (e) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      setValues((prevState) => ({
+        ...prevState,
+        regionIds: [...prevState.regionIds, value],
+      }));
+    } else {
+      setValues((prevState) => ({
+        ...prevState,
+        regionIds: prevState.regionIds.filter((e) => e !== value),
+      }));
+    }
+  };
+
   const handleCheck = (e) => {
     const { name, value, checked } = e.target;
 
@@ -143,7 +159,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         id={region.name}
         label={region.name}
         value={region.id}
-        onChange={handlelang}
+        onChange={handlereg}
       ></Form.Check>
     ));
   } else {
