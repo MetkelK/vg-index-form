@@ -11,6 +11,7 @@ const App = () => {
   const [regions, setRegions] = useState([]);
   const [gameInfo, setgameInfo] = useState([]);
 
+  // Retrieve discId from url and set to variable
   const queryParams = new URLSearchParams(window.location.search);
   const discId = queryParams.get("discId");
 
@@ -64,6 +65,7 @@ const App = () => {
     getGameInfo();
   }, [discId]);
 
+  // Sort systems, languages, and regions alphabetically
   let sortedSystems = systems.sort((a, b) => a.name.localeCompare(b.name));
   let sortedLanguages = languages.sort((a, b) => a.name.localeCompare(b.name));
   let sortedRegions = regions.sort((a, b) => a.name.localeCompare(b.name));
@@ -78,7 +80,6 @@ const App = () => {
               types={types}
               languages={sortedLanguages}
               regions={sortedRegions}
-              discId={discId}
               info={gameInfo}
             />
           </Route>
