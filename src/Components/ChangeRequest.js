@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import ListGroup from "react-bootstrap/ListGroup";
 
-function ChangeRequest({ systems, types, languages, regions, discId, info }) {
+function ChangeRequest({ systems, types, languages, regions, info }) {
   let featureFlags;
   let languageOptions;
   let regionOptions;
@@ -37,7 +37,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     });
   };
 
-  const handlelang = (e) => {
+  const handleLanguageChange = (e) => {
     const { value, checked } = e.target;
 
     if (checked) {
@@ -53,7 +53,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
     }
   };
 
-  const handlereg = (e) => {
+  const handleRegionChange = (e) => {
     const { value, checked } = e.target;
 
     if (checked) {
@@ -141,7 +141,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         id={language.name}
         label={language.name}
         value={language.id}
-        onChange={handlelang}
+        onChange={handleLanguageChange}
       ></Form.Check>
     ));
   } else {
@@ -159,7 +159,7 @@ function ChangeRequest({ systems, types, languages, regions, discId, info }) {
         id={region.name}
         label={region.name}
         value={region.id}
-        onChange={handlereg}
+        onChange={handleRegionChange}
       ></Form.Check>
     ));
   } else {
