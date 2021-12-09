@@ -379,12 +379,7 @@ function ChangeRequest({ systems, types, languages, regions, info }) {
         <Form.Group className="my-2">
           <Form.Label>PVD</Form.Label>
 
-          <Form.Control
-            type="input"
-            placeholder={info.pvd}
-            name="pvd"
-            onChange={handleInputChange}
-          />
+          <Form.Control type="input" name="pvd" onChange={handleInputChange} />
         </Form.Group>
 
         <Form.Group className="my-2">
