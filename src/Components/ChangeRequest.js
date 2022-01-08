@@ -88,7 +88,7 @@ function ChangeRequest({ systems, types, languages, regions, info }) {
   useEffect(() => {
     const getFormat = () => {
       fetch(
-        `https://vgindex-dev.org/api/change-request/systems/${values.systemId}/disc-formats`
+        `https://vgindex-dev.org/api/systems/${values.systemId}/disc-formats`
       )
         .then((res) => res.json())
         .then((res) => setDiscFormat(res))
@@ -107,7 +107,7 @@ function ChangeRequest({ systems, types, languages, regions, info }) {
   useEffect(() => {
     const getFlags = () => {
       fetch(
-        `https://vgindex-dev.org/api/change-request/systems/${values.systemId}/feature-flags?discFormatId=${values.formatId}`
+        `https://vgindex-dev.org/api/systems/${values.systemId}/feature-flags?discFormatId=${values.formatId}`
       )
         .then((res) => res.json())
         .then((res) => setFlags(res))

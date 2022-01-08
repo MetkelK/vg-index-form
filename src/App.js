@@ -17,7 +17,7 @@ const App = () => {
 
   useEffect(() => {
     const getSystems = () => {
-      fetch(`https://vgindex-dev.org/api/change-request/systems`)
+      fetch(`https://vgindex-dev.org/api/systems`)
         .then((res) => res.json())
         .then((res) => setSystems(res))
         .catch((err) => console.log(err));
@@ -27,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     const getTypes = () => {
-      fetch(`https://vgindex-dev.org/api/change-request/disc-content-types`)
+      fetch(`https://vgindex-dev.org/api/disc-content-types`)
         .then((res) => res.json())
         .then((res) => setTypes(res))
         .catch((err) => console.log(err));
@@ -37,7 +37,7 @@ const App = () => {
 
   useEffect(() => {
     const getLanguages = () => {
-      fetch(`https://vgindex-dev.org/api/change-request/languages`)
+      fetch(`https://vgindex-dev.org/api/languages`)
         .then((res) => res.json())
         .then((res) => setLanguages(res))
         .catch((err) => console.log(err));
@@ -47,7 +47,7 @@ const App = () => {
 
   useEffect(() => {
     const getRegions = () => {
-      fetch(`https://vgindex-dev.org/api/change-request/regions`)
+      fetch(`https://vgindex-dev.org/api/regions`)
         .then((res) => res.json())
         .then((res) => setRegions(res))
         .catch((err) => console.log(err));
@@ -57,7 +57,7 @@ const App = () => {
 
   useEffect(() => {
     const getGameInfo = () => {
-      fetch(`https://vgindex-dev.org/api/change-request/discs/${discId}`)
+      fetch(`https://vgindex-dev.org/api/discs/${discId}`)
         .then((res) => res.json())
         .then((res) => setgameInfo(res))
         .catch((err) => console.log(err));
